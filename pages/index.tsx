@@ -50,7 +50,7 @@ export default function Home() {
       const { url } = data;
 
       const result = await axios.post(
-        `api/download?url=${encodeURIComponent(url)}`
+        `api/infos?url=${encodeURIComponent(url)}`
       );
 
       handleOpenModal();
