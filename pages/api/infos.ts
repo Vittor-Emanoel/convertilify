@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import ytdl, { getBasicInfo } from "ytdl-core";
+import { getBasicInfo } from "ytdl-core";
 
 export const config = {
   api: {
@@ -18,15 +18,6 @@ export default async function handler(
       throw new Error("URL não fornecida.");
     }
     const info = await getBasicInfo(url);
-
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=${info.videoDetails.title}.mp3`
-    );
-    ytdl(url, {
-      filter: "audioonly",
-      quality: "lowest",
-    }).pipe(res);
 
     res.status(200).json({
       id: info.videoDetails.videoId,
