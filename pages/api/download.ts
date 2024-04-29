@@ -3,6 +3,7 @@ import ytdl, { getBasicInfo } from "ytdl-core";
 
 export const config = {
   api: {
+    bodyParser: false,
     responseLimit: false,
   },
 };
