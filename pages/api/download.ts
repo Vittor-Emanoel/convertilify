@@ -3,10 +3,10 @@ import ytdl, { getBasicInfo } from "ytdl-core";
 
 export const config = {
   api: {
+    bodyParser: false,
     responseLimit: false,
   },
 };
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
