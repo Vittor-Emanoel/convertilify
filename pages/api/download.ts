@@ -51,9 +51,13 @@ export default async function handler(
 
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename="${info.videoDetails.title}.mp3"`,
-      "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+      `attachment; filename="${info.videoDetails.title}.mp3"`
     );
+    res.setHeader(
+      "User-Agent",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+    );
+
     ytdl(url, {
       filter: "audioonly",
       quality: "lowestaudio",
