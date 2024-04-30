@@ -76,7 +76,7 @@ export default function Home() {
         <CardHeader className="pb-2">
           <CardTitle className="text-4xl">Convertilify</CardTitle>
           <CardDescription>
-            Baixe os audios dos seus videos do youtube de forma rapida e
+            Baixe os áudios dos seus vídeos do YouTube de forma rápida e
             gratuita.
           </CardDescription>
         </CardHeader>

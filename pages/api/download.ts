@@ -54,8 +54,6 @@ export default async function handler(
     await promisify(pipeline)(videoReadableStream, res);
 
     res.setHeader("Total-Bytes", `${contentLength}`);
-
-    res.status(200);
   } catch (error) {
     console.error("Erro:", error);
     res.status(500).json({ error: "Ocorreu um erro." });
