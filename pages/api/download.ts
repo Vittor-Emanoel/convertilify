@@ -27,9 +27,11 @@ export default async function handler(
       throw new Error("Informações do vídeo não encontradas.");
     }
 
+    const escapedTitle = escapeContentDispositionValue(info.videoDetails.title);
+
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename="${info.videoDetails.title}.mp3"`
+      `attachment; filename="${escapedTitle}.mp3"`
     );
 
     const videoReadableStream = ytdl(url, {
@@ -55,4 +57,7 @@ export default async function handler(
     console.error("Erro:", error);
     res.status(500).json({ error: "Ocorreu um erro." });
   }
+}
+function escapeContentDispositionValue(value: string): string {
+  return value.replace(/[^a-zA-Z0-9\-_. ]/g, "");
 }
