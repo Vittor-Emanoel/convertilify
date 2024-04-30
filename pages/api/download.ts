@@ -53,7 +53,7 @@ export default async function handler(
     // Transmitir o vídeo para a resposta
     await promisify(pipeline)(videoReadableStream, res);
 
-    res.setHeader("Content-Length", contentLength.toString());
+    res.setHeader("Total-Bytes", `${contentLength}`);
 
     res.status(200);
   } catch (error) {
