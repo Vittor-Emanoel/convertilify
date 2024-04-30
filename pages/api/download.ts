@@ -33,6 +33,10 @@ export default async function handler(
       "Content-Disposition",
       `attachment; filename="${escapedTitle}.mp3"`
     );
+    res.setHeader(
+      "User-Agent",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+    );
 
     const videoReadableStream = ytdl(url, {
       filter: "audioonly",
@@ -49,24 +53,15 @@ export default async function handler(
     // Transmitir o vídeo para a resposta
     await promisify(pipeline)(videoReadableStream, res);
 
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename="${info.videoDetails.title}.mp3"`
-    );
-    res.setHeader(
-      "User-Agent",
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
-    );
+    res.setHeader("Total-Bytes", contentLength.toString());
 
-    ytdl(url, {
-      filter: "audioonly",
-      quality: "lowestaudio",
-    }).pipe(res);
+    res.status(200);
   } catch (error) {
     console.error("Erro:", error);
     res.status(500).json({ error: "Ocorreu um erro." });
   }
 }
+
 function escapeContentDispositionValue(value: string): string {
   return value.replace(/[^a-zA-Z0-9\-_. ]/g, "");
 }
