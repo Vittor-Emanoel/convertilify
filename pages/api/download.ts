@@ -49,10 +49,15 @@ export default async function handler(
     // Transmitir o vídeo para a resposta
     await promisify(pipeline)(videoReadableStream, res);
 
-    // Definir cabeçalho para o tamanho total do arquivo
-    res.setHeader("Total-Bytes", contentLength.toString());
-
-    res.status(200);
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${info.videoDetails.title}.mp3"`,
+      "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+    );
+    ytdl(url, {
+      filter: "audioonly",
+      quality: "lowestaudio",
+    }).pipe(res);
   } catch (error) {
     console.error("Erro:", error);
     res.status(500).json({ error: "Ocorreu um erro." });
