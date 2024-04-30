@@ -1,13 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import ytdl, { getBasicInfo } from "ytdl-core";
 
-export const config = {
-  api: {
-    bodyParser: false,
-    responseLimit: false,
-  },
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -26,7 +19,7 @@ export default async function handler(
     );
     ytdl(url, {
       filter: "audioonly",
-      quality: "lowest",
+      quality: "lowestaudio",
     }).pipe(res);
 
     res.status(200);

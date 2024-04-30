@@ -27,6 +27,10 @@ export function Modal({
 }: ModalProps) {
   const router = useRouter();
 
+  async function handleDonwload() {
+    router.push(`api/download?url=${encodeURIComponent(videoUrl)}`);
+  }
+
   return (
     <Dialog onOpenChange={onClose} open>
       <DialogContent key={videoId}>
@@ -50,9 +54,7 @@ export function Modal({
           type="submit"
           size="default"
           className="space-x-2 w-full disabled:cursor-not-allowed"
-          onClick={() =>
-            router.push(`api/download?url=${encodeURIComponent(videoUrl)}`)
-          }
+          onClick={handleDonwload}
         >
           <DownloadIcon className="w-4 h-4" />
           <p>Baixar</p>
