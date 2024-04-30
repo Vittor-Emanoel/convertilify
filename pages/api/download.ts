@@ -43,17 +43,17 @@ export default async function handler(
       quality: "lowestaudio",
     });
 
-    let contentLength = 0;
-
     // Calcular o tamanho total do arquivo
     videoReadableStream.on("response", (res) => {
       contentLength = parseInt(res.headers["content-length"] || "0");
     });
 
+    let contentLength = 0;
+
     // Transmitir o vídeo para a resposta
     await promisify(pipeline)(videoReadableStream, res);
 
-    res.setHeader("Total-Bytes", contentLength.toString());
+    res.setHeader("Content-Length", contentLength.toString());
 
     res.status(200);
   } catch (error) {
